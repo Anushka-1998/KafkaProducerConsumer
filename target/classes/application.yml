@@ -1,0 +1,54 @@
+server:
+  port: 9001
+
+kafka:
+  avro-topic: avro-topic
+  avro-retry-topic: avro-retry-topic
+  avro-dlt-topic: avro-dlt-topic
+  avro-claims-check-topic: avro-claims-check-topic
+  json-topic: json-topic
+  json-retry-topic: json-retry-topic
+  json-dlt-topic: json-dlt-topic
+  json-claims-check-topic: json-claims-check-topic
+
+  properties:
+    saslRequired: true
+    security.protocol: PLAINTEXT
+    sasl.mechanism: PLAIN
+    schema.registry.url: http://localhost:8081/
+    basic.auth.credentials.source: USER_INFO
+    schema.registry.basic.auth.user.info: USER_INFO
+  retry:
+    backoff:
+      delay: 500
+      multiplier: 2
+      maxDelay: 1000
+    maximum:
+      attempts: 3
+  consumer:
+    bootstrap-servers: localhost:9092
+    group-id: group_id
+    auto-offset-reset: earliest
+  producer:
+    login-module: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";
+    bootstrap-servers: localhost:9092
+    acks-config: all
+    linger: 5
+    batch-size: 16384
+    send-buffer: 131072
+    request:
+      timeout:
+        ms: 30000
+    retry:
+      backoff:
+        ms: 500
+
+events-payload:
+  file-name: testing_claimscheck
+azure:
+  storage:
+    container-name: test
+    account-name: claimscheckpayloads
+    account-key: 8OD1vjEqe7ux9m7UiBWImDMfmsWfu52rjkdsHoQ6gUrDyNThUt9U7UDeeEZWssp/IaVWv/CTXv8spi0Kug9gpA==
+    blob-endpoint: https://claimscheckpayloads.blob.core.windows.net
+

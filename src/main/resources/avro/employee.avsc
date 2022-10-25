@@ -1,0 +1,10 @@
+{"namespace": "com.kafka.hello",
+  "type": "record",
+  "name": "Employee",
+  "doc" : "Represents an Employee at a company",
+  "fields": [
+    {"name": "firstName", "type": "string"},
+    {"name": "lastName", "type": "string"}
+
+  ]
+}
